@@ -77,7 +77,7 @@ export const DetailWeather: FC<DetailWeatherProps> = ({ className, onChangeWeath
       sx={{
         display: "flex",
         flexDirection: "column",
-        gap: 5,
+        gap: 2,
         height: "100%",
         overflowY: "auto",
       }}

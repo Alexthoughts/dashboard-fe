@@ -358,7 +358,7 @@ export const DetailReceipe: FC<DetailReceipe> = ({
           </Box>
         </Box>
 
-        <Box sx={{ display: "flex", gap: "5px", marginBottom: "2rem" }}>
+        <Box sx={{ display: "flex", gap: "5px", marginBottom: "1rem" }}>
           <Chip
             label={`${renderedReceipe.cuisineType?.[0]}${
               renderedReceipe?.cuisineType?.length > 1
