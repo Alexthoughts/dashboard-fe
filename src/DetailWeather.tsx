@@ -68,7 +68,6 @@ export const DetailWeather: FC<DetailWeatherProps> = ({ className, onChangeWeath
     });
     return response.data;
   };
-
   if (!weather) {
     return <></>;
   }
@@ -103,7 +102,13 @@ export const DetailWeather: FC<DetailWeatherProps> = ({ className, onChangeWeath
         </Box>
       </Box>
 
-      <Box sx={{ display: "flex", gap: 30 }}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          marginRight: { md: "5rem", sm: "2rem" },
+        }}
+      >
         <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
           <Typography>{`Feels like: ${weather.current.feelslike_c}°`}</Typography>
           <Box sx={{ display: "flex", gap: 3 }}>
