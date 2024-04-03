@@ -52,7 +52,7 @@ const MainBackground: React.FC<MainBackgroundType> = ({ children }) => {
     maxHeight: "100vh",
     minWidth: "570px",
     maxWidth: "100vw",
-    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.0)), url(src/images/backgrounds/${backgroundImageIndex}.jpg)`,
+    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.0)), url(public/images/backgrounds/${backgroundImageIndex}.jpg)`,
     backgroundSize: "cover",
     overflowX: "hidden",
   };
