@@ -85,7 +85,7 @@ export const DetailReceipe: FC<DetailReceipe> = ({
   const nextUpdateIn = 10; //minutes
   const localStorageKeyList = "Recipes list";
   const localStorageKeyFavourite = "Favourite recipes";
-  const basicImagePath = "public/images/circles/salad.png";
+  const basicImagePath = "/images/circles/salad.png";
 
   //API call
   const receipesApiCall = async () => {

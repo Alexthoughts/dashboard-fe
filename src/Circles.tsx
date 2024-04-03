@@ -34,33 +34,33 @@ export const Circles: FC<CirclesType> = ({ onClick, recipeImage, weather }) => {
 
     if (!isDay) {
       if (conditionText.includes("clear")) {
-        return `public/images/weather/clear-night-${getRandomInt()}.jpg`;
+        return `/images/weather/clear-night-${getRandomInt()}.jpg`;
       }
       if (conditionText.includes("cloudy") || conditionText.includes("overcast")) {
-        return `public/images/weather/cloudy-night-${getRandomInt()}.jpg`;
+        return `/images/weather/cloudy-night-${getRandomInt()}.jpg`;
       }
       if (conditionText.includes("rain") || conditionText.includes("drizzle")) {
-        return `public/images/weather/rain-night-${getRandomInt()}.jpg`;
+        return `/images/weather/rain-night-${getRandomInt()}.jpg`;
       }
 
-      return "public/images/weather/clear-night-1.jpg";
+      return "/images/weather/clear-night-1.jpg";
     }
 
     if (isDay) {
       if (conditionText.includes("clear")) {
-        return `public/images/weather/clear-day-${getRandomInt()}.jpg`;
+        return `/images/weather/clear-day-${getRandomInt()}.jpg`;
       }
       if (conditionText.includes("sunny")) {
-        return `public/images/weather/sunny-day-${getRandomInt()}.jpg`;
+        return `/images/weather/sunny-day-${getRandomInt()}.jpg`;
       }
       if (conditionText.includes("cloudy") || conditionText.includes("overcast")) {
-        return `public/images/weather/cloudy-day-${getRandomInt()}.jpg`;
+        return `/images/weather/cloudy-day-${getRandomInt()}.jpg`;
       }
       if (conditionText.includes("rain") || conditionText.includes("drizzle")) {
-        return `public/images/weather/rain-day-${getRandomInt()}.jpg`;
+        return `/images/weather/rain-day-${getRandomInt()}.jpg`;
       }
 
-      return "public/images/weather/sunny-day-2.jpg";
+      return "/images/weather/sunny-day-2.jpg";
     }
   };
 
