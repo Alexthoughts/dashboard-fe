@@ -58,7 +58,7 @@ export const Holiday: FC<HolidayProps> = ({
         onClick={clickAction}
         style={{
           transition: "transform 0.3s",
-          transform: isOpenHolidayList ? "rotate(180deg)" : "rotate(0)",
+          transform: isOpenHolidayList ? "rotate(0)" : "rotate(180deg)",
         }}
       />
     </Box>

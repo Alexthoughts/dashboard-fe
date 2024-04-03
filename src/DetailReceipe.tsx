@@ -261,7 +261,7 @@ export const DetailReceipe: FC<DetailReceipe> = ({
             sx={{
               fontSize: "34px",
               color: "rgba(255, 255, 255, 0.8)",
-              maxWidth: "68%",
+              maxWidth: { md: "68%", xs: "60%" },
               overflow: "hidden",
               textOverflow: "ellipsis",
               maxHeight: "8rem",
@@ -270,49 +270,75 @@ export const DetailReceipe: FC<DetailReceipe> = ({
           >
             {renderedReceipe.label}
           </Link>
-          {isFavouriteRecipe ? (
-            <IconButton
-              aria-label="favourite"
-              size="medium"
-              sx={{ "&:hover": { backgroundColor: "rgba(955, 555, 9, 0.2)" } }}
-              onClick={() => handleDeleteSavedRecipe(renderedReceipe.uri)}
-            >
-              <FavoriteIcon fontSize="inherit" sx={{ color: "rgba(255, 214, 0, 0.5)" }} />
-            </IconButton>
-          ) : (
-            <IconButton
-              aria-label="favourite"
-              size="medium"
-              sx={{ "&:hover": { backgroundColor: "rgba(955, 555, 9, 0.2)" } }}
-              onClick={saveRecipe}
-            >
-              <FavoriteBorderIcon
-                fontSize="inherit"
-                sx={{ color: "rgba(255, 214, 0, 0.5)" }}
-              />
-            </IconButton>
-          )}
-          <Box sx={{ display: "flex", position: "absolute", right: "5rem" }}>
-            <IconButton
-              aria-label="favourite"
-              size="medium"
-              sx={{ "&:hover": { backgroundColor: "rgba(955, 555, 9, 0.2)" } }}
-              onClick={() => getNextRecipeIndex(renderedReceipeIndex - 2)}
-            >
-              <ArrowBackIcon />
-            </IconButton>
-            <IconButton
-              aria-label="favourite"
-              size="medium"
-              sx={{
-                "&:hover": {
-                  backgroundColor: "rgba(955, 555, 9, 0.2)",
-                },
-              }}
-              onClick={() => getNextRecipeIndex(renderedReceipeIndex)}
-            >
-              <ArrowForwardIcon />
-            </IconButton>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              position: "absolute",
+              right: "5rem",
+              alignSelf: "flex-start",
+            }}
+          >
+            {isFavouriteRecipe ? (
+              <IconButton
+                aria-label="favourite"
+                size="medium"
+                sx={{ "&:hover": { backgroundColor: "rgba(955, 555, 9, 0.2)" } }}
+                onClick={() => handleDeleteSavedRecipe(renderedReceipe.uri)}
+              >
+                <FavoriteIcon
+                  fontSize="inherit"
+                  sx={{ color: "rgba(255, 214, 0, 0.5)", width: "fit-content" }}
+                />
+              </IconButton>
+            ) : (
+              <IconButton
+                aria-label="favourite"
+                size="medium"
+                sx={{
+                  "&:hover": {
+                    backgroundColor: "rgba(955, 555, 9, 0.2)",
+                  },
+                  width: "fit-content",
+                }}
+                onClick={saveRecipe}
+              >
+                <FavoriteBorderIcon
+                  fontSize="inherit"
+                  sx={{ color: "rgba(255, 214, 0, 0.5)" }}
+                />
+              </IconButton>
+            )}
+            <Box sx={{ display: "flex" }}>
+              {/* position: "absolute", right: "5rem" */}
+              <IconButton
+                aria-label="previous-recipe"
+                size="medium"
+                sx={{
+                  "&:hover": {
+                    backgroundColor: "rgba(955, 555, 9, 0.2)",
+                  },
+                  color: "rgba(255, 214, 0, 0.5)",
+                }}
+                onClick={() => getNextRecipeIndex(renderedReceipeIndex - 2)}
+              >
+                <ArrowBackIcon />
+              </IconButton>
+              <IconButton
+                aria-label="next-recipe"
+                size="medium"
+                sx={{
+                  "&:hover": {
+                    backgroundColor: "rgba(955, 555, 9, 0.2)",
+                  },
+                  color: "rgba(255, 214, 0, 0.5)",
+                }}
+                onClick={() => getNextRecipeIndex(renderedReceipeIndex)}
+              >
+                <ArrowForwardIcon />
+              </IconButton>
+            </Box>
           </Box>
         </Box>
         {/* </Box> */}

@@ -134,7 +134,10 @@ export const DetailNotes: FC<DetailNotesProps> = ({ className }) => {
         <IconButton
           aria-label="delete"
           size="large"
-          sx={{ "&:hover": { backgroundColor: "rgba(255, 0, 0, 0.2)" } }}
+          sx={{
+            "&:hover": { backgroundColor: "rgba(255, 0, 0, 0.2)" },
+            color: "rgba(255, 214, 0, 0.5)",
+          }}
           onClick={() => handleClickDeleteNote(note)}
         >
           <DeleteIcon fontSize="inherit" />
