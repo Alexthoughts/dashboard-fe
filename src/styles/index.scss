@@ -1,0 +1,215 @@
+@import "./variables.scss";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 100%;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+ul {
+  padding-left: 0;
+}
+ul li {
+  list-style-position: inside;
+}
+
+.light-grey {
+  color: $grey08;
+}
+
+/* HEADER */
+.typography {
+  margin: 1rem;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5;
+  letter-spacing: 0.00938em;
+}
+
+/* EXCHANGES DETAIL */
+.exchanges-clear-icon {
+  transition: $transition-time2;
+}
+
+.exchanges-clear-icon:hover {
+  color: $red;
+  transform: scale(1.2);
+  transition: $transition-time03;
+}
+
+.exchanges-clear-icon:active {
+  color: $yellow08;
+  transition: $transition-time03;
+}
+
+/* CIRCLES */
+.black-circle {
+  height: 5rem;
+  width: 5rem;
+  border-radius: 5.625rem;
+  background-image: linear-gradient(rgba(0, 0, 0, 1), rgba(61, 60, 60, 0.26));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.circle-icon {
+  height: 4rem;
+  width: 4rem;
+  border-radius: 90px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: $transition-time03;
+}
+
+.circle-icon:hover {
+  overflow: hidden;
+  transform: scale(1.25);
+  transition: $transition-time03;
+}
+
+.notes-icon {
+  background-image: url($note-image);
+  background-size: cover;
+}
+
+.receipe-icon {
+  background-size: cover;
+}
+
+.circle-weather {
+  height: 5rem;
+  width: 15rem;
+  border-radius: 90px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  color: $white;
+  cursor: pointer;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.527), rgba(0, 0, 0, 0.5)),
+    url(EauDp1hUcAAE-bK.jpg);
+}
+
+.circle-weather:hover {
+  // transform: ;
+}
+
+.low-brightness {
+  filter: brightness(80%);
+}
+
+/* DETAIL */
+.detail-actions {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  overflow: hidden;
+  border-radius: 0px 20px 0px 20px; /*TopLeft - TopRight - BottomRight - BottomLeft */
+  z-index: 100;
+}
+
+.hidden-header-element {
+  display: flex;
+  flex-direction: column;
+  visibility: hidden;
+  max-width: 25%;
+}
+
+@media (max-width: 899px) {
+  .hidden-header-element {
+    display: none;
+  }
+}
+
+.visible-header-detail {
+  visibility: visible;
+  overflow: hidden;
+  max-height: 100%;
+  transition: $transition-time03 ease-in;
+}
+
+.hidden-header-detail {
+  visibility: hidden;
+  max-height: 0;
+  transition: $transition-time03 ease-out;
+}
+
+.visible-detail {
+  visibility: visible;
+  opacity: 100%;
+  transition: $transition-time03;
+}
+
+.hidden-detail {
+  visibility: hidden;
+  opacity: 0;
+  transition: $transition-time03;
+}
+
+.visible-detail-info {
+  visibility: visible;
+  opacity: 100%;
+  transition: opacity 1s;
+}
+
+.hidden-detail-info {
+  visibility: hidden;
+  max-height: 0;
+  opacity: 0;
+}
+
+.rotation-arrow {
+  transition: transform $transition-time05;
+}
+
+.rotation-arrow.rotated {
+  transform: rotate(180deg);
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.max-brghtness {
+  filter: brightness(100%) !important;
+}
+
+/* CUSTOM SCROLLBAR */
+/* width */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #9e9e9e;
+  border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #424242;
+  border-radius: 5px;
+  /* background: transparent; */
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #212121;
+}

@@ -1,0 +1,13 @@
+//COLORS
+$grey08: rgba(255, 255, 255, 0.8);
+$red: rgb(255, 0, 0);
+$yellow08: rgba(255, 214, 0, 0.8);
+$white: rgba(255, 255, 255);
+
+//TRANSITION TIME
+$transition-time03: 0.3s; //After change -> update timeout time in Detail.tsx - handleCloseClick
+$transition-time05: 0.5s;
+$transition-time2: 2s;
+
+//IMAGES
+$note-image: "src/images/circles/sticky-notes.png";
