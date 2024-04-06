@@ -9,7 +9,7 @@ const MainBackground: React.FC<MainBackgroundType> = ({ children }) => {
   const [lastImageUpdateDate, setLastImageUpdateDate] = useState<string>(
     new Date().getDate().toString()
   );
-  const [backgroundImageIndex, setBackgroundImageIndex] = useState<string>("");
+  const [backgroundImageIndex, setBackgroundImageIndex] = useState<string>();
   const localStorageKey = "Last background update day";
   const localStorageKeyImageIndex = "Background image index";
 
@@ -56,7 +56,12 @@ const MainBackground: React.FC<MainBackgroundType> = ({ children }) => {
     backgroundSize: "cover",
     overflowX: "hidden",
   };
-  return <Box sx={mainBoxStyle}>{children}</Box>;
+
+  if (!backgroundImageIndex) {
+    return <Box>{children}</Box>;
+  } else {
+    return <Box sx={mainBoxStyle}>{children}</Box>;
+  }
 };
 
 export default MainBackground;
