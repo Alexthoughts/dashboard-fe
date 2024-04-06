@@ -34,13 +34,13 @@ export const Circles: FC<CirclesType> = ({ onClick, recipeImage, weather }) => {
 
     if (!isDay) {
       if (conditionText.includes("clear")) {
-        return `/images/weather/clear-night-${getRandomInt()}.jpg`;
+        return `/images/weather/clear-night-${getRandomInt()}.webp`;
       }
       if (conditionText.includes("cloudy") || conditionText.includes("overcast")) {
-        return `/images/weather/cloudy-night-${getRandomInt()}.jpg`;
+        return `/images/weather/cloudy-night-${getRandomInt()}.webp`;
       }
       if (conditionText.includes("rain") || conditionText.includes("drizzle")) {
-        return `/images/weather/rain-night-${getRandomInt()}.jpg`;
+        return `/images/weather/rain-night-${getRandomInt()}.webp`;
       }
 
       return "/images/weather/clear-night-1.jpg";
@@ -48,19 +48,19 @@ export const Circles: FC<CirclesType> = ({ onClick, recipeImage, weather }) => {
 
     if (isDay) {
       if (conditionText.includes("clear")) {
-        return `/images/weather/clear-day-${getRandomInt()}.jpg`;
+        return `/images/weather/clear-day-${getRandomInt()}.webp`;
       }
       if (conditionText.includes("sunny")) {
-        return `/images/weather/sunny-day-${getRandomInt()}.jpg`;
+        return `/images/weather/sunny-day-${getRandomInt()}.webp`;
       }
       if (conditionText.includes("cloudy") || conditionText.includes("overcast")) {
-        return `/images/weather/cloudy-day-${getRandomInt()}.jpg`;
+        return `/images/weather/cloudy-day-${getRandomInt()}.webp`;
       }
       if (conditionText.includes("rain") || conditionText.includes("drizzle")) {
-        return `/images/weather/rain-day-${getRandomInt()}.jpg`;
+        return `/images/weather/rain-day-${getRandomInt()}.webp`;
       }
 
-      return "/images/weather/sunny-day-2.jpg";
+      return "/images/weather/sunny-day-2.webp";
     }
   };
 
@@ -107,7 +107,7 @@ export const Circles: FC<CirclesType> = ({ onClick, recipeImage, weather }) => {
                 overflow: "hidden",
               }}
             >
-              {weather.location.name}
+              {weather ? weather.location.name : ""}
             </Typography>
             <Typography sx={{ fontSize: "1.5rem", fontWeight: "bold" }}>
               {`${weather.current.temp_c}°` || ""}

@@ -12,6 +12,7 @@ export const DetailWeather: FC<DetailWeatherProps> = ({ className, onChangeWeath
   const localStorageKey = "Weather";
 
   useEffect(() => {
+    getWeatherFromLocalStorage();
     const fetchWheather = async () => {
       try {
         const { latitude, longitude } = await getYourCity();
@@ -25,15 +26,19 @@ export const DetailWeather: FC<DetailWeatherProps> = ({ className, onChangeWeath
         }
       } catch (error) {
         console.error(error);
-        const weatherFromLocalStorage = localStorage.getItem(localStorageKey);
-        if (weatherFromLocalStorage) {
-          setWeather(JSON.parse(weatherFromLocalStorage));
-          onChangeWeather(JSON.parse(weatherFromLocalStorage));
-        }
+        getWeatherFromLocalStorage();
       }
     };
     fetchWheather();
   }, []);
+
+  const getWeatherFromLocalStorage = () => {
+    const weatherFromLocalStorage = localStorage.getItem(localStorageKey);
+    if (weatherFromLocalStorage) {
+      setWeather(JSON.parse(weatherFromLocalStorage));
+      onChangeWeather(JSON.parse(weatherFromLocalStorage));
+    }
+  };
 
   const getYourCity = async () => {
     const response = await axios.get("https://ipapi.co/json");

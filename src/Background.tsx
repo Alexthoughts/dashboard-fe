@@ -9,7 +9,7 @@ const MainBackground: React.FC<MainBackgroundType> = ({ children }) => {
   const [lastImageUpdateDate, setLastImageUpdateDate] = useState<string>(
     new Date().getDate().toString()
   );
-  const [backgroundImageIndex, setBackgroundImageIndex] = useState<string>("0");
+  const [backgroundImageIndex, setBackgroundImageIndex] = useState<string>();
   const localStorageKey = "Last background update day";
   const localStorageKeyImageIndex = "Background image index";
 
@@ -52,7 +52,7 @@ const MainBackground: React.FC<MainBackgroundType> = ({ children }) => {
     maxHeight: "100vh",
     minWidth: "570px",
     maxWidth: "100vw",
-    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.0)), url(/images/backgrounds/${backgroundImageIndex}.jpg)`,
+    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.0)), url(/images/backgrounds/${backgroundImageIndex}.webp)`,
     backgroundSize: "cover",
     overflowX: "hidden",
   };
