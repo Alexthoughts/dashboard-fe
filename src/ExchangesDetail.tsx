@@ -80,29 +80,28 @@ export const ExchangesDetail: FC<ExchangesDetailType> = ({ isOpen, onChange }) =
   }, [JSON.stringify(rates)]);
 
   //get data from local storage and update exchange rates
-  let ratesFromLocalStorage: Rate[];
+  const getAndSaveNewRates = async (ratesFromLocalStorage: Rate[]) => {
+    try {
+      let rates: Rate[] = [];
+      for (const rate of ratesFromLocalStorage) {
+        const newRates = await getExchangeRate(rate.from, rate.to);
+        if (newRates) {
+          rates = [...rates, ...newRates];
+          saveRates(rates);
+        }
+      }
+    } catch {
+      if (ratesFromLocalStorage && ratesFromLocalStorage.length > 0) {
+        saveRates(ratesFromLocalStorage);
+      }
+    }
+  };
+
   useEffect(() => {
     const arrayOfRates = localStorage.getItem(localStorageKey);
     if (arrayOfRates) {
-      ratesFromLocalStorage = JSON.parse(arrayOfRates).reverse();
-
-      let rates: Rate[] = [];
-      ratesFromLocalStorage.forEach(async (rate: Rate) => {
-        getExchangeRate(rate.from, rate.to)
-          .then((newRates) => {
-            if (newRates) {
-              rates = [...rates, ...newRates];
-              if (rates.length > 0) {
-                saveRates(rates);
-              }
-            }
-          })
-          .catch(() => {
-            if (ratesFromLocalStorage && ratesFromLocalStorage.length > 0) {
-              saveRates(ratesFromLocalStorage);
-            }
-          });
-      });
+      const ratesFromLocalStorage = JSON.parse(arrayOfRates);
+      getAndSaveNewRates(ratesFromLocalStorage);
     }
   }, []);
 
@@ -192,6 +191,7 @@ export const ExchangesDetail: FC<ExchangesDetailType> = ({ isOpen, onChange }) =
   const saveToLocalStorage = (array: Rate[]) => {
     if (!array || array.length === 0) return;
     const savedArray = [...array];
+    console.log(...savedArray);
     localStorage.setItem(localStorageKey, JSON.stringify(savedArray));
   };
 

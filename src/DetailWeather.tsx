@@ -54,7 +54,7 @@ export const DetailWeather: FC<DetailWeatherProps> = ({ className, onChangeWeath
         days: "2",
       },
       headers: {
-        "X-RapidAPI-Key": "2545cfc18amsh4fa2481df2d6a5ep13ff72jsn3d0b055227f7",
+        // "X-RapidAPI-Key": "2545cfc18amsh4fa2481df2d6a5ep13ff72jsn3d0b055227f7",
         "X-RapidAPI-Host": "weatherapi-com.p.rapidapi.com",
       },
     });
@@ -67,7 +67,7 @@ export const DetailWeather: FC<DetailWeatherProps> = ({ className, onChangeWeath
       url: "https://air-quality-by-api-ninjas.p.rapidapi.com/v1/airquality",
       params: { lat: latitude, lon: longitude },
       headers: {
-        "X-RapidAPI-Key": "2545cfc18amsh4fa2481df2d6a5ep13ff72jsn3d0b055227f7",
+        // "X-RapidAPI-Key": "2545cfc18amsh4fa2481df2d6a5ep13ff72jsn3d0b055227f7",
         "X-RapidAPI-Host": "air-quality-by-api-ninjas.p.rapidapi.com",
       },
     });
