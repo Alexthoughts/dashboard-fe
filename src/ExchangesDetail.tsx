@@ -191,7 +191,6 @@ export const ExchangesDetail: FC<ExchangesDetailType> = ({ isOpen, onChange }) =
   const saveToLocalStorage = (array: Rate[]) => {
     if (!array || array.length === 0) return;
     const savedArray = [...array];
-    console.log(...savedArray);
     localStorage.setItem(localStorageKey, JSON.stringify(savedArray));
   };
 
