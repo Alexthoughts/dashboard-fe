@@ -88,7 +88,7 @@ export const Circles: FC<CirclesType> = ({ onClick, recipeImage, weather }) => {
         />
       </div>
       {/* WEATHER */}
-      {weather && (
+      {weather && weatherImage && (
         <div
           className="circle-weather"
           style={{
