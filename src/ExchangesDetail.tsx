@@ -84,9 +84,9 @@ export const ExchangesDetail: FC<ExchangesDetailType> = ({ isOpen, onChange }) =
     try {
       let rates: Rate[] = [];
       for (const rate of ratesFromLocalStorage) {
-        const newRates = await getExchangeRate(rate.from, rate.to);
-        if (newRates) {
-          rates = [...rates, ...newRates];
+        const newRate = await getExchangeRate(rate.from, rate.to);
+        if (newRate) {
+          rates = [...rates, ...newRate];
           saveRates(rates);
         }
       }
@@ -159,6 +159,8 @@ export const ExchangesDetail: FC<ExchangesDetailType> = ({ isOpen, onChange }) =
 
     try {
       const response = await apiCallGetExchanges(cur1, cur2);
+      if (!response.result.convertedAmount)
+        throw new Error(`Exchange rate for ${cur1}/${cur2} is not available!`);
       let ratesArray: Rate[];
       if (rates.length === 4) {
         const slicedArray = rates.slice(0, -1);
@@ -166,7 +168,6 @@ export const ExchangesDetail: FC<ExchangesDetailType> = ({ isOpen, onChange }) =
       } else {
         ratesArray = [...rates, { ...response.result, id: rateId }];
       }
-
       return ratesArray;
     } catch (error) {
       console.error("Failed to fetch exchanges: " + error);
@@ -200,7 +201,7 @@ export const ExchangesDetail: FC<ExchangesDetailType> = ({ isOpen, onChange }) =
   };
 
   const renderExchangeRate = rates?.map((rate: Rate) => {
-    if (rate) {
+    if (rate.convertedAmount) {
       const amount = rate.convertedAmount.toFixed(2);
       return (
         <Box sx={{ display: "flex", alignContent: "center" }} key={rate.id}>

@@ -30,6 +30,7 @@ export const Exchanges: FC<ExchangesType> = ({
   };
 
   const renderedExchangeRates = exchangeRates?.map((rate) => {
+    if (!rate.convertedAmount) return;
     return (
       <Typography key={rate.id}>{`${rate.from}/${
         rate.to
