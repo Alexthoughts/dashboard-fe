@@ -10,6 +10,7 @@ type CirclesType = {
 
 export const Circles: FC<CirclesType> = ({ onClick, recipeImage, weather }) => {
   const [weatherImage, setWeatherImage] = useState<string | undefined>();
+  console.log(weather);
 
   const handleCircleClick = (circleName: CircleNames) => {
     onClick(circleName);
@@ -29,7 +30,8 @@ export const Circles: FC<CirclesType> = ({ onClick, recipeImage, weather }) => {
   const getWeatherBg = () => {
     if (!weather) return;
 
-    const conditionText = weather.current.condition.text.toLowerCase();
+    const conditionText =
+      weather.forecast.forecastday[0].day.condition.text.toLowerCase();
     const isDay = weather.current.is_day; //0 or 1
 
     if (!isDay) {
