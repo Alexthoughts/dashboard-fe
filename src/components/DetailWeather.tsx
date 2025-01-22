@@ -1,6 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import axios from "axios";
 import { FC, useEffect, useState } from "react";
+import useLocation from "../hooks/useLocation";
 
 type DetailWeatherProps = {
   className: string;
@@ -9,15 +10,17 @@ type DetailWeatherProps = {
 
 export const DetailWeather: FC<DetailWeatherProps> = ({ className, onChangeWeather }) => {
   const [weather, setWeather] = useState<any>();
+  const { location } = useLocation();
   const localStorageKey = "Weather";
 
   useEffect(() => {
     getWeatherFromLocalStorage();
     const fetchWheather = async () => {
+      if (!location) return;
       try {
-        const { latitude, longitude } = await getYourCity();
-        const weather = await getWeatherApiCall(latitude, longitude);
-        const aqi = await getAQIApiCall(latitude, longitude);
+        const { lat, lon } = location;
+        const weather = await getWeatherApiCall(lat, lon);
+        const aqi = await getAQIApiCall(lat, lon);
         if ((weather && aqi) || weather) {
           const aqiAndWeather = aqi ? { ...weather, aqi } : { ...weather };
           onChangeWeather(aqiAndWeather);
@@ -30,7 +33,7 @@ export const DetailWeather: FC<DetailWeatherProps> = ({ className, onChangeWeath
       }
     };
     fetchWheather();
-  }, []);
+  }, [location]);
 
   const getWeatherFromLocalStorage = () => {
     const weatherFromLocalStorage = localStorage.getItem(localStorageKey);
@@ -38,11 +41,6 @@ export const DetailWeather: FC<DetailWeatherProps> = ({ className, onChangeWeath
       setWeather(JSON.parse(weatherFromLocalStorage));
       onChangeWeather(JSON.parse(weatherFromLocalStorage));
     }
-  };
-
-  const getYourCity = async () => {
-    const response = await axios.get("https://ipapi.co/json");
-    return response.data;
   };
 
   const getWeatherApiCall = async (latitude: number, longitude: number) => {

@@ -4,6 +4,7 @@ import dayjs from "dayjs";
 import { FC, useEffect } from "react";
 import { holidayObjectType } from "../../types/types";
 import { getNearestHoliday, getWorkingDay } from "./reusableFunctions";
+import useLocation from "../../hooks/useLocation";
 
 type HolidayListProps = {
   setHolidays: (holidayList: []) => void;
@@ -17,28 +18,24 @@ export const HolidayList: FC<HolidayListProps> = ({
   holidayList,
 }) => {
   const localStorageKey = "Holiday list";
+  const { location } = useLocation();
   //GET HOLIDAY LIST
   useEffect(() => {
-    getCountryCode()
-      .then((countryCode) => getHolidayList(countryCode))
-      .then((holidayList) => {
-        setHolidays(holidayList);
-        localStorage.setItem(localStorageKey, JSON.stringify(holidayList));
-      })
-      .catch((error) => {
-        console.error("Fetch holiday list error: ", error);
-        const listFromLocalStorage = localStorage.getItem(localStorageKey);
-        if (listFromLocalStorage) {
-          setHolidays(JSON.parse(listFromLocalStorage));
-        }
-      });
-  }, []);
-
-  const getCountryCode = async () => {
-    const response = await axios.get("https://ipapi.co/json");
-
-    return response.data.country_code;
-  };
+    if (location) {
+      getHolidayList(location.countryCode)
+        .then((holidayList) => {
+          setHolidays(holidayList);
+          localStorage.setItem(localStorageKey, JSON.stringify(holidayList));
+        })
+        .catch((err) => {
+          console.error("Fetch holiday list error: ", err);
+          const listFromLocalStorage = localStorage.getItem(localStorageKey);
+          if (listFromLocalStorage) {
+            setHolidays(JSON.parse(listFromLocalStorage));
+          }
+        });
+    }
+  }, [location]);
 
   const getHolidayList = async (countryCode: string) => {
     const currentYear = dayjs().year();
