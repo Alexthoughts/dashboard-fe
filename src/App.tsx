@@ -1,13 +1,13 @@
 import { Box } from "@mui/material";
-import { Header } from "./Header";
-import { HolidayList } from "./HolidayList";
-import { DateTime } from "./DateTime";
-import { Circles } from "./Circles";
-import { Detail } from "./Detail";
-import { ExchangesDetail } from "./ExchangesDetail";
+import { Header } from "./components/Header";
+import { DateTime } from "./components/DateTime";
+import { Circles } from "./components/Circles";
+import { Detail } from "./components/Detail";
+import { ExchangesDetail } from "./components/ExchangesDetail";
 import { useState } from "react";
 import { CircleNames, Rate } from "./types/types";
-import MainBackground from "./Background";
+import MainBackground from "./components/Background";
+import { HolidayList } from "./components/Holidays/HolidayList";
 
 function App() {
   const [isOpenHolidayList, setIsOpenHolidayList] = useState<boolean>(false);
@@ -18,7 +18,7 @@ function App() {
   const [recipeImage, setRecipeImage] = useState<string>("");
   const [weather, setWeather] = useState<[]>();
 
-  const getHolidays = (holidays: []) => {
+  const setHolidays = (holidays: []) => {
     setHolidayList(holidays);
   };
 
@@ -90,7 +90,7 @@ function App() {
           }}
         >
           <HolidayList
-            onChange={getHolidays}
+            setHolidays={setHolidays}
             isOpen={isOpenHolidayList}
             holidayList={holidayList}
           />

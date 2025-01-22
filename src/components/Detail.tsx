@@ -7,7 +7,7 @@ import { FC, useEffect, useState } from "react";
 import { DetailNotes } from "./DetailNotes";
 import { DetailReceipe } from "./DetailReceipe";
 import { DetailWeather } from "./DetailWeather";
-import { CircleNames } from "./types/types";
+import { CircleNames } from "../types/types";
 
 const theme = createTheme({
   palette: {

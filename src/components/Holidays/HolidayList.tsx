@@ -2,29 +2,34 @@ import { Box } from "@mui/material";
 import axios from "axios";
 import dayjs from "dayjs";
 import { FC, useEffect } from "react";
-import { holidayObjectType } from "./types/types";
+import { holidayObjectType } from "../../types/types";
+import { getNearestHoliday, getWorkingDay } from "./reusableFunctions";
 
 type HolidayListProps = {
-  onChange: (holidayList: []) => void;
+  setHolidays: (holidayList: []) => void;
   isOpen: boolean;
   holidayList: [];
 };
 
-export const HolidayList: FC<HolidayListProps> = ({ onChange, isOpen, holidayList }) => {
+export const HolidayList: FC<HolidayListProps> = ({
+  setHolidays,
+  isOpen,
+  holidayList,
+}) => {
   const localStorageKey = "Holiday list";
   //GET HOLIDAY LIST
   useEffect(() => {
     getCountryCode()
       .then((countryCode) => getHolidayList(countryCode))
       .then((holidayList) => {
-        onChange(holidayList);
+        setHolidays(holidayList);
         localStorage.setItem(localStorageKey, JSON.stringify(holidayList));
       })
       .catch((error) => {
         console.error("Fetch holiday list error: ", error);
         const listFromLocalStorage = localStorage.getItem(localStorageKey);
         if (listFromLocalStorage) {
-          onChange(JSON.parse(listFromLocalStorage));
+          setHolidays(JSON.parse(listFromLocalStorage));
         }
       });
   }, []);
@@ -38,25 +43,31 @@ export const HolidayList: FC<HolidayListProps> = ({ onChange, isOpen, holidayLis
   const getHolidayList = async (countryCode: string) => {
     const currentYear = dayjs().year();
     const response = await axios.get(
-      `https://public-holiday.p.rapidapi.com/${currentYear}/${countryCode}`,
+      `https://public-holidays7.p.rapidapi.com/${currentYear}/${countryCode}`,
       {
         headers: {
-          "X-RapidAPI-Key": "2545cfc18amsh4fa2481df2d6a5ep13ff72jsn3d0b055227f7",
-          "X-RapidAPI-Host": "public-holiday.p.rapidapi.com",
+          "x-rapidapi-key": "2545cfc18amsh4fa2481df2d6a5ep13ff72jsn3d0b055227f7",
+          "x-rapidapi-host": "public-holidays7.p.rapidapi.com",
         },
       }
     );
     return response.data;
   };
 
-  const renderHolidayList = () =>
-    holidayList.map((holiday: holidayObjectType) => {
+  const renderHolidayList = () => {
+    const nearestHoliday = getNearestHoliday(holidayList);
+
+    return holidayList.map((holiday: holidayObjectType) => {
+      const workingDay = getWorkingDay(dayjs(holiday.date).day());
+      const isNearestHoliday = holiday.date === nearestHoliday?.date;
       return (
-        <div key={holiday.name}>{`${dayjs(holiday.date).format("MMM DD")} - ${
-          holiday.name
-        }`}</div>
+        <Box
+          key={holiday.name}
+          sx={isNearestHoliday ? { fontWeight: "bold" } : {}}
+        >{`${dayjs(holiday.date).format("MMM DD")} ${workingDay} - ${holiday.name}`}</Box>
       );
     });
+  };
 
   return (
     <Box

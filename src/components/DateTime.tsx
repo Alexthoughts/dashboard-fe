@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import dayjs from "dayjs";
 import { FC, useEffect, useState } from "react";
-import { holidayObjectType } from "./types/types";
+import { holidayObjectType } from "../types/types";
 
 type dateTimeProps = {
   holidayList: holidayObjectType[];

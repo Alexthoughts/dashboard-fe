@@ -10,7 +10,7 @@ import { SelectChangeEvent } from "@mui/material/Select";
 import ClearIcon from "@mui/icons-material/Clear";
 import { FC, useEffect, useState } from "react";
 import axios from "axios";
-import { Rate } from "./types/types";
+import { Rate } from "../types/types";
 
 const selectStyle = {
   color: "rgba(955, 555, 9, 0.8)",

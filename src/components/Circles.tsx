@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import { FC, useEffect, useState } from "react";
-import { CircleNames } from "./types/types";
+import { CircleNames } from "../types/types";
 
 type CirclesType = {
   onClick: (circleName: CircleNames) => void;

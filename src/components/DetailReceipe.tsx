@@ -7,8 +7,8 @@ import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { FC, useEffect, useState } from "react";
 import axios from "axios";
-import { mockReceipes } from "./mocks/mockReceipes";
 import dayjs, { Dayjs } from "dayjs";
+import { mockReceipes } from "../mocks/mockReceipes";
 
 type DetailReceipe = {
   className: string;

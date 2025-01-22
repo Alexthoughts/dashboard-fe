@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from "react";
 import { Box, Typography } from "@mui/material";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import dayjs from "dayjs";
-import { holidayObjectType } from "./types/types";
+import { getNearestHoliday, getWorkingDay } from "./reusableFunctions";
 
 type HolidayProps = {
   onChange: (isOpen: boolean) => void;
@@ -21,17 +21,7 @@ export const Holiday: FC<HolidayProps> = ({
   useEffect(() => {
     if (holidayList.length === 0) return;
     const holidayDays = () => {
-      const currentDate = dayjs().format("YYYY-MM-DD");
-
-      const nearestHoliday = holidayList
-        .map((holiday: holidayObjectType) => ({
-          ...holiday,
-          daysBefore: dayjs(holiday.date).diff(currentDate, "days"), //calculate days for a holiday
-        }))
-        .filter((holiday) => holiday.daysBefore > 0) //filter future holidays
-        .sort((b, a) => b.daysBefore - a.daysBefore) //sort from the nearest
-        .shift(); //first element of an array
-
+      const nearestHoliday = getNearestHoliday(holidayList);
       let nextHoliday: string;
       //nearestHoliday = undefined, means that no more holidays this year
       if (!nearestHoliday) {
@@ -39,7 +29,7 @@ export const Holiday: FC<HolidayProps> = ({
       } else {
         nextHoliday = `${nearestHoliday.name}, ${dayjs(nearestHoliday.date).format(
           "DD MMMM"
-        )}`;
+        )} ${getWorkingDay(dayjs(nearestHoliday.date).day())}`;
       }
       setNextHolidayDay(nextHoliday);
     };
