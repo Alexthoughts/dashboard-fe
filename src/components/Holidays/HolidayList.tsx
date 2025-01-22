@@ -22,7 +22,7 @@ export const HolidayList: FC<HolidayListProps> = ({
   //GET HOLIDAY LIST
   useEffect(() => {
     if (location) {
-      getHolidayList(location.countryCode)
+      getHolidayList(location.country_code2)
         .then((holidayList) => {
           setHolidays(holidayList);
           localStorage.setItem(localStorageKey, JSON.stringify(holidayList));

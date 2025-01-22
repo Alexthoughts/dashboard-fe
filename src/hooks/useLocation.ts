@@ -7,9 +7,8 @@ const useLocation = () => {
   useEffect(() => {
     const fetchLocation = async () => {
       try {
-        const ipResponse = await axios.get("https://checkip.amazonaws.com/");
         const locationResponse = await axios.get(
-          `http://ip-api.com/json/${ipResponse.data.trim()}`
+          `https://api.ipgeolocation.io/ipgeo?apiKey=f5a930d151f04b70acc044d547d6db9f`
         );
         setLocation(locationResponse.data);
       } catch (err) {

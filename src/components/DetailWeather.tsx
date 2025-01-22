@@ -18,9 +18,9 @@ export const DetailWeather: FC<DetailWeatherProps> = ({ className, onChangeWeath
     const fetchWheather = async () => {
       if (!location) return;
       try {
-        const { lat, lon } = location;
-        const weather = await getWeatherApiCall(lat, lon);
-        const aqi = await getAQIApiCall(lat, lon);
+        const { latitude, longitude } = location;
+        const weather = await getWeatherApiCall(latitude, longitude);
+        const aqi = await getAQIApiCall(latitude, longitude);
         if ((weather && aqi) || weather) {
           const aqiAndWeather = aqi ? { ...weather, aqi } : { ...weather };
           onChangeWeather(aqiAndWeather);
