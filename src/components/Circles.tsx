@@ -10,7 +10,6 @@ type CirclesType = {
 
 export const Circles: FC<CirclesType> = ({ onClick, recipeImage, weather }) => {
   const [weatherImage, setWeatherImage] = useState<string | undefined>();
-  console.log(weather);
 
   const handleCircleClick = (circleName: CircleNames) => {
     onClick(circleName);
