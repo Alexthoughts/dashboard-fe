@@ -97,7 +97,7 @@ export const DetailWeather: FC<DetailWeatherProps> = ({ className, onChangeWeath
             lineHeight: "2.4rem",
           }}
         >
-          {weather.location.name}
+          {weather.location.region}
         </Typography>
         <Box sx={{ display: "flex", alignItems: "center" }}>
           <img src={weather.current.condition.icon} alt="current-weather-icon" />
