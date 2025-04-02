@@ -108,7 +108,7 @@ export const Circles: FC<CirclesType> = ({ onClick, recipeImage, weather }) => {
                 overflow: "hidden",
               }}
             >
-              {weather ? weather.location.region : ""}
+              {weather ? weather.location.name : ""}
             </Typography>
             <Typography sx={{ fontSize: "1.5rem", fontWeight: "bold" }}>
               {`${weather.current.temp_c}°` || ""}
