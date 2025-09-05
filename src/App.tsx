@@ -3,11 +3,11 @@ import { Header } from "./components/Header";
 import { DateTime } from "./components/DateTime";
 import { Circles } from "./components/Circles";
 import { Detail } from "./components/Detail";
-import { ExchangesDetail } from "./components/ExchangesDetail";
 import { useState } from "react";
 import { CircleNames, Rate } from "./types/types";
 import MainBackground from "./components/Background";
 import { HolidayList } from "./components/Holidays/HolidayList";
+import { ExchangesDetail } from "./components/Exchanges/ExchangesDetail";
 
 function App() {
   const [isOpenHolidayList, setIsOpenHolidayList] = useState<boolean>(false);

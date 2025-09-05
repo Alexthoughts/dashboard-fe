@@ -3,6 +3,8 @@ import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import { FC, useEffect, useState } from "react";
+import axios from "../api/axios";
+import SaveIcon from "@mui/icons-material/Save";
 
 const textAreaStyle = {
   "& label": {
@@ -64,22 +66,25 @@ type DetailNotesProps = {
   className?: string;
 };
 
+type SavedNote = {
+  id: number;
+  isSavedSuccessfully: boolean;
+};
+
 export const DetailNotes: FC<DetailNotesProps> = ({ className }) => {
-  const localStorageKey = "Notes list";
   const [newNoteText, setNewNoteText] = useState<string>("");
   const [notesList, setNotesList] = useState<Note[]>([]);
+  const [editableNote, setEditableNote] = useState<Note>();
+  const [editableNoteSaved, setEditableNoteSaved] = useState<SavedNote>();
 
   useEffect(() => {
-    const dataFromLocalStorage = localStorage.getItem(localStorageKey);
-    if (dataFromLocalStorage) {
-      const convertedData = JSON.parse(dataFromLocalStorage);
-      setNotesList(convertedData);
-    }
+    getNotes();
   }, []);
 
-  useEffect(() => {
-    localStorage.setItem(localStorageKey, JSON.stringify(notesList));
-  }, [notesList.toString()]);
+  const getNotes = async () => {
+    const notes = await axios.get("note/get-notes");
+    setNotesList(notes.data);
+  };
 
   const handleChangeNewNote = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewNoteText(e.target.value);
@@ -92,15 +97,42 @@ export const DetailNotes: FC<DetailNotesProps> = ({ className }) => {
     }
   };
 
-  const handleClickAddNewNote = () => {
+  const handleClickAddNewNote = async () => {
     if (newNoteText.length > 0) {
-      const newNote = { id: new Date().getTime(), text: newNoteText };
-      setNotesList([...notesList, newNote]);
+      const newNote = await axios.post("note/create-note", { text: newNoteText });
+      setNotesList([...notesList, newNote.data]);
       setNewNoteText("");
     }
   };
 
-  const handleClickDeleteNote = (noteToDelete: Note) => {
+  const onClickEditNote = (note: Note) => {
+    setEditableNote(note);
+  };
+
+  const handleChangeEditableNote = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (editableNote) {
+      const note = { id: editableNote.id, text: e.target.value };
+      setEditableNote(note);
+    }
+  };
+
+  const handleClickSaveEditableNote = async () => {
+    if (editableNote) {
+      await axios
+        .patch("note/update-note", editableNote)
+        .then(() =>
+          setEditableNoteSaved({ id: editableNote.id, isSavedSuccessfully: true })
+        );
+      const updatedNotesList = notesList.map((note) =>
+        note.id === editableNote.id ? { ...note, text: editableNote.text } : note
+      );
+      setNotesList(updatedNotesList);
+      setEditableNote(undefined);
+    }
+  };
+
+  const handleClickDeleteNote = async (noteToDelete: Note) => {
+    axios.delete(`note/delete-note/${noteToDelete.id}`);
     const newNotesList = notesList.filter((note) => {
       return note.id !== noteToDelete.id;
     });
@@ -124,10 +156,36 @@ export const DetailNotes: FC<DetailNotesProps> = ({ className }) => {
           multiline
           maxRows={2}
           fullWidth
-          value={note.text}
+          value={note.id === editableNote?.id ? editableNote?.text : note.text}
           variant="filled"
+          onChange={handleChangeEditableNote}
+          onBlur={handleClickSaveEditableNote}
+          onClick={() => onClickEditNote(note)}
           InputProps={{
-            readOnly: true,
+            endAdornment: {
+              ...(note.id === editableNoteSaved?.id &&
+              editableNoteSaved?.isSavedSuccessfully ? (
+                <IconButton
+                  aria-label="save"
+                  sx={{
+                    color: "rgba(0, 255, 55, 0.5)",
+                  }}
+                  onClick={handleClickSaveEditableNote}
+                >
+                  <SaveIcon fontSize="inherit" />
+                </IconButton>
+              ) : (
+                <IconButton
+                  aria-label="save"
+                  sx={{
+                    color: "rgba(255, 214, 0, 0.5)",
+                  }}
+                  onClick={handleClickSaveEditableNote}
+                >
+                  <SaveIcon fontSize="inherit" />
+                </IconButton>
+              )),
+            },
           }}
           sx={textAreaStyleReadonly}
         />

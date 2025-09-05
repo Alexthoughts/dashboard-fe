@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import { Box, Typography } from "@mui/material";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowDown";
-import { Rate } from "../types/types";
+import { Rate } from "../../types/types";
 
 type ExchangesType = {
   onChangeExchange: any;

@@ -3,10 +3,11 @@ import { Box, Typography } from "@mui/material";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import dayjs from "dayjs";
 import { getNearestHoliday, getWorkingDay } from "./reusableFunctions";
+import { holidayObjectType } from "../../types/types";
 
 type HolidayProps = {
   onChange: (isOpen: boolean) => void;
-  holidayList: [];
+  holidayList: holidayObjectType[];
   isOpenHolidayList: boolean;
 };
 

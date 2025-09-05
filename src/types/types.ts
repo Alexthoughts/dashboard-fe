@@ -1,13 +1,8 @@
 export type holidayObjectType = {
-  countries?: any;
-  countryCode: string;
+  id: number;
   date: string;
-  fixed: boolean;
-  global: boolean;
-  launchYear?: any;
   localName: string;
   name: string;
-  type: string;
   days: number; //added when counting the niarest holiday
 };
 

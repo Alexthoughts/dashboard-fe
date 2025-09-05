@@ -46,7 +46,7 @@ export const DetailWeather: FC<DetailWeatherProps> = ({ className, onChangeWeath
   const getWeatherApiCall = async (latitude: number, longitude: number) => {
     const response = await axios.request({
       method: "GET",
-      url: "https://weatherapi-com.p.rapidapi.com/forecast.json",
+      url: "https://weatherapi-com.p.rapidapi.com/forecast.json/ttttt",
       params: {
         q: `${latitude},${longitude}`,
         days: "2",
@@ -62,7 +62,7 @@ export const DetailWeather: FC<DetailWeatherProps> = ({ className, onChangeWeath
   const getAQIApiCall = async (latitude: number, longitude: number) => {
     const response = await axios.request({
       method: "GET",
-      url: "https://air-quality-by-api-ninjas.p.rapidapi.com/v1/airquality",
+      url: "https://air-quality-by-api-ninjas.p.rapidapi.com/v1/airquality/tttt",
       params: { lat: latitude, lon: longitude },
       headers: {
         "X-RapidAPI-Key": "2545cfc18amsh4fa2481df2d6a5ep13ff72jsn3d0b055227f7",

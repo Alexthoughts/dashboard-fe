@@ -45,7 +45,7 @@ type RecipeType = {
 
 const options = {
   method: "GET",
-  url: "https://edamam-recipe-search.p.rapidapi.com/api/recipes/v2",
+  url: "https://edamam-recipe-search.p.rapidapi.com/api/recipes/v2/tttt",
   params: {
     type: "public",
     co2EmissionsClass: "A+",

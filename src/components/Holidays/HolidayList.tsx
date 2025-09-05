@@ -1,15 +1,15 @@
 import { Box } from "@mui/material";
-import axios from "axios";
 import dayjs from "dayjs";
 import { FC, useEffect } from "react";
 import { holidayObjectType } from "../../types/types";
 import { getNearestHoliday, getWorkingDay } from "./reusableFunctions";
 import useLocation from "../../hooks/useLocation";
+import axios from "../../api/axios";
 
 type HolidayListProps = {
   setHolidays: (holidayList: []) => void;
   isOpen: boolean;
-  holidayList: [];
+  holidayList: holidayObjectType[];
 };
 
 export const HolidayList: FC<HolidayListProps> = ({
@@ -19,7 +19,7 @@ export const HolidayList: FC<HolidayListProps> = ({
 }) => {
   const localStorageKey = "Holiday list";
   const { location } = useLocation();
-  //GET HOLIDAY LIST
+
   useEffect(() => {
     if (location) {
       getHolidayList(location.country_code2)
@@ -38,16 +38,7 @@ export const HolidayList: FC<HolidayListProps> = ({
   }, [location]);
 
   const getHolidayList = async (countryCode: string) => {
-    const currentYear = dayjs().year();
-    const response = await axios.get(
-      `https://public-holidays7.p.rapidapi.com/${currentYear}/${countryCode}`,
-      {
-        headers: {
-          "x-rapidapi-key": "2545cfc18amsh4fa2481df2d6a5ep13ff72jsn3d0b055227f7",
-          "x-rapidapi-host": "public-holidays7.p.rapidapi.com",
-        },
-      }
-    );
+    const response = await axios.get(`holiday/get-holiday-list/${countryCode}/tttt`);
     return response.data;
   };
 

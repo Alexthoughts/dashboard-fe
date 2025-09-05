@@ -1,8 +1,8 @@
 import { Box } from "@mui/material";
 import { FC } from "react";
-import { Exchanges } from "./Exchanges";
 import { Rate } from "../types/types";
 import { Holiday } from "./Holidays/Holiday";
+import { Exchanges } from "./Exchanges/Exchanges";
 
 type HeaderProps = {
   onChange: () => void;

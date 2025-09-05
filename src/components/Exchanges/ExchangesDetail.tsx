@@ -10,7 +10,7 @@ import { SelectChangeEvent } from "@mui/material/Select";
 import ClearIcon from "@mui/icons-material/Clear";
 import { FC, useEffect, useState } from "react";
 import axios from "axios";
-import { Rate } from "../types/types";
+import { Rate } from "../../types/types";
 
 const selectStyle = {
   color: "rgba(955, 555, 9, 0.8)",
@@ -120,7 +120,7 @@ export const ExchangesDetail: FC<ExchangesDetailType> = ({ isOpen, onChange }) =
   const apiCallGetExchanges = async (cur1: string, cur2: string) => {
     const response = await axios.request({
       method: "GET",
-      url: "https://currency-converter18.p.rapidapi.com/api/v1/convert",
+      url: "https://currency-converter18.p.rapidapi.com/api/v1/convert/tttttt",
       params: {
         from: cur1,
         to: cur2,
@@ -138,7 +138,7 @@ export const ExchangesDetail: FC<ExchangesDetailType> = ({ isOpen, onChange }) =
     try {
       const response = await axios.request({
         method: "GET",
-        url: "https://currency-converter18.p.rapidapi.com/api/v1/supportedCurrencies",
+        url: "https://currency-converter18.p.rapidapi.com/api/v1/supportedCurrencies/ttttt",
         headers: {
           "X-RapidAPI-Key": "2545cfc18amsh4fa2481df2d6a5ep13ff72jsn3d0b055227f7",
           "X-RapidAPI-Host": "currency-converter18.p.rapidapi.com",
