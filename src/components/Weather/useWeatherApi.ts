@@ -7,7 +7,7 @@ const useWeatherApi = () => {
     const getWeatherApiCall = async () => {
         try {
             const { latitude, longitude } = await fetchLocation();
-            const response = await axiosInstance.get('weather/get-weather', {
+            const response = await axiosInstance.get('weather/get-weather/ttt', {
                 params: {
                     lat: latitude,
                     lon: longitude,

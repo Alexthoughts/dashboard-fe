@@ -28,7 +28,7 @@ export const useExchangeRate = () => {
     const getSavedRates = async () => {
         try {
             const response = await axiosInstance.get('exchange/get-saved-rates');
-            return response.data.data.convertRateList;
+            return response.data.data;
         } catch (err: any) {
             throw new Error(err.response?.data?.message || 'Failed to fetch saved rates');
         }

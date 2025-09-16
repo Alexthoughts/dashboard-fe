@@ -1,17 +1,18 @@
 import { Box, Typography } from '@mui/material';
-import { FC, useEffect, useState } from 'react';
+import { FC, useContext, useEffect, useState } from 'react';
 import { CircleNames } from '../types/types';
 import UseCircleWeatherImage from '../components/Weather/UseCircleWeatherImage';
+import { WeatherContext } from './Weather/WeatherContext';
 
 type CirclesType = {
     onClick: (circleName: CircleNames) => void;
     recipeImage: string;
-    weather: any;
 };
 
-export const Circles: FC<CirclesType> = ({ onClick, recipeImage, weather }) => {
+export const Circles: FC<CirclesType> = ({ onClick, recipeImage }) => {
     const [weatherImage, setWeatherImage] = useState<string>();
     const { getWeatherBg } = UseCircleWeatherImage();
+    const { weather } = useContext(WeatherContext);
 
     const handleCircleClick = (circleName: CircleNames) => {
         onClick(circleName);

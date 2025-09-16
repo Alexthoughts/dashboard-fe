@@ -5,17 +5,17 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import { FC, useEffect, useState } from 'react';
+import { FC, useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import dayjs, { Dayjs } from 'dayjs';
 import { mockReceipes } from '../mocks/mockReceipes';
+import { ExchangeContext } from './Exchanges/ExchangeContext';
+import { HolidaysContext } from './Holidays/HolidaysContext';
 
 type DetailReceipe = {
     className: string;
     onChangeRecipeImage: (image: string) => void;
     circleName: string;
-    isOpenExchangesDetail: boolean;
-    isOpenHolidayList: boolean;
 };
 
 type RecipeType = {
@@ -66,13 +66,7 @@ const options = {
     },
 };
 
-export const DetailReceipe: FC<DetailReceipe> = ({
-    className,
-    onChangeRecipeImage,
-    circleName,
-    isOpenExchangesDetail,
-    isOpenHolidayList,
-}) => {
+export const DetailReceipe: FC<DetailReceipe> = ({ className, onChangeRecipeImage, circleName }) => {
     const [listOfReceipes, setListOfReceipes] = useState<any[]>([]);
     const [renderedReceipe, setRenderedReceipe] = useState<RecipeType | null>(null);
     const [renderedReceipeIndex, setRenderedReceipeIndex] = useState<number>(0);
@@ -81,6 +75,10 @@ export const DetailReceipe: FC<DetailReceipe> = ({
     const [lastUpdateAt, setLastUpdateAt] = useState<Dayjs | null>(null);
     const [nextUpdateAt, setNextUpdateAt] = useState<Dayjs | null>(null);
     const [isFirstRender, setIsFirstRender] = useState<boolean>(false);
+
+    const { isOpenExchangesDetail } = useContext(ExchangeContext);
+    const { isOpenHolidayList } = useContext(HolidaysContext);
+
     const imageTimeout = 60; //minutes
     const nextUpdateIn = 10; //minutes
     const localStorageKeyList = 'Recipes list';

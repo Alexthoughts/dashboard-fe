@@ -5,11 +5,13 @@ import AddIcon from '@mui/icons-material/Add';
 import { FC, useEffect, useState } from 'react';
 import axios from '../../api/axios';
 import SaveIcon from '@mui/icons-material/Save';
-import { textAreaStyle, textAreaStyleReadonly } from './NoteslStyles';
+import ExpandIcon from '@mui/icons-material/Expand';
+import { textAreaStyle, textAreaStyleReadonly } from './NotesStyles';
 
 type Note = {
     id: number;
     text: string;
+    isExpanded?: boolean;
 };
 
 type DetailNotesProps = {
@@ -57,12 +59,20 @@ export const DetailNotes: FC<DetailNotesProps> = ({ className }) => {
 
     const onClickEditNote = (note: Note) => {
         setEditableNote(note);
+        setEditableNoteSaved(undefined);
     };
 
     const handleChangeEditableNote = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (editableNote) {
             const note = { id: editableNote.id, text: e.target.value };
             setEditableNote(note);
+        }
+    };
+
+    const handleKeyEditNote = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
+            e.preventDefault();
+            handleClickSaveEditableNote();
         }
     };
 
@@ -77,6 +87,13 @@ export const DetailNotes: FC<DetailNotesProps> = ({ className }) => {
             setNotesList(updatedNotesList);
             setEditableNote(undefined);
         }
+    };
+
+    const handleClickExpandEditableNote = (expandedNote: Note) => {
+        const updatedNotesList = notesList.map((note) =>
+            note.id === expandedNote.id ? { ...note, isExpanded: !expandedNote.isExpanded } : note,
+        );
+        setNotesList(updatedNotesList);
     };
 
     const handleClickDeleteNote = async (noteToDelete: Note) => {
@@ -102,37 +119,43 @@ export const DetailNotes: FC<DetailNotesProps> = ({ className }) => {
             >
                 <TextField
                     multiline
-                    maxRows={2}
+                    maxRows={note.isExpanded ? 10 : 2}
                     fullWidth
                     value={note.id === editableNote?.id ? editableNote?.text : note.text}
                     variant="filled"
                     onChange={handleChangeEditableNote}
                     onBlur={handleClickSaveEditableNote}
                     onClick={() => onClickEditNote(note)}
+                    onKeyDown={handleKeyEditNote}
                     InputProps={{
-                        endAdornment: {
-                            ...(note.id === editableNoteSaved?.id && editableNoteSaved?.isSavedSuccessfully ? (
+                        endAdornment: (
+                            <>
                                 <IconButton
-                                    aria-label="save"
-                                    sx={{
-                                        color: 'rgba(0, 255, 55, 0.5)',
-                                    }}
-                                    onClick={handleClickSaveEditableNote}
+                                    aria-label="expand"
+                                    sx={{ color: 'rgba(255, 214, 0, 0.5)' }}
+                                    onClick={() => handleClickExpandEditableNote(note)}
                                 >
-                                    <SaveIcon fontSize="inherit" />
+                                    <ExpandIcon fontSize="inherit" />
                                 </IconButton>
-                            ) : (
-                                <IconButton
-                                    aria-label="save"
-                                    sx={{
-                                        color: 'rgba(255, 214, 0, 0.5)',
-                                    }}
-                                    onClick={handleClickSaveEditableNote}
-                                >
-                                    <SaveIcon fontSize="inherit" />
-                                </IconButton>
-                            )),
-                        },
+                                {note.id === editableNoteSaved?.id && editableNoteSaved?.isSavedSuccessfully ? (
+                                    <IconButton
+                                        aria-label="save"
+                                        sx={{ color: 'rgba(0, 255, 55, 0.5)' }}
+                                        onClick={handleClickSaveEditableNote}
+                                    >
+                                        <SaveIcon fontSize="inherit" />
+                                    </IconButton>
+                                ) : (
+                                    <IconButton
+                                        aria-label="save"
+                                        sx={{ color: 'rgba(255, 214, 0, 0.5)' }}
+                                        onClick={handleClickSaveEditableNote}
+                                    >
+                                        <SaveIcon fontSize="inherit" />
+                                    </IconButton>
+                                )}
+                            </>
+                        ),
                     }}
                     sx={textAreaStyleReadonly}
                 />

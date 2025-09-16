@@ -1,15 +1,15 @@
 import { Box, Stack, Typography } from '@mui/material';
-import { FC, useEffect, useState } from 'react';
+import { FC, useContext, useEffect } from 'react';
 import useWeatherApi from './useWeatherApi';
+import { WeatherContext } from './WeatherContext';
 
 type DetailWeatherProps = {
     className: string;
-    onChangeWeather: (wheather: any) => void;
 };
 
-export const DetailWeather: FC<DetailWeatherProps> = ({ className, onChangeWeather }) => {
-    const [weather, setWeather] = useState<any>();
+export const DetailWeather: FC<DetailWeatherProps> = ({ className }) => {
     const { getWeatherApiCall } = useWeatherApi();
+    const { weather, setWeather } = useContext(WeatherContext);
 
     useEffect(() => {
         fetchWheather();
@@ -18,7 +18,6 @@ export const DetailWeather: FC<DetailWeatherProps> = ({ className, onChangeWeath
     const fetchWheather = async () => {
         const weather = await getWeatherApiCall();
         if (weather) {
-            onChangeWeather(weather);
             setWeather(weather);
         }
     };

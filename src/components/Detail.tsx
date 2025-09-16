@@ -20,19 +20,9 @@ type DetailType = {
     detailName: CircleNames | null;
     onClose: () => void;
     onChangeRecipeImage: (image: string) => void;
-    onChangeWeather: (weather: []) => void;
-    isOpenExchangesDetail: boolean;
-    isOpenHolidayList: boolean;
 };
 
-export const Detail: FC<DetailType> = ({
-    detailName,
-    onClose,
-    onChangeRecipeImage,
-    onChangeWeather,
-    isOpenExchangesDetail,
-    isOpenHolidayList,
-}) => {
+export const Detail: FC<DetailType> = ({ detailName, onClose, onChangeRecipeImage }) => {
     const localStorageKey = 'Saved detail';
     const [isVisible, setIsVisible] = useState<boolean>(false);
     const [selectedDetail, setSelectedDetail] = useState<any>();
@@ -120,14 +110,11 @@ export const Detail: FC<DetailType> = ({
                         }`}
                         onChangeRecipeImage={onChangeRecipeImage}
                         circleName={selectedDetail}
-                        isOpenExchangesDetail={isOpenExchangesDetail}
-                        isOpenHolidayList={isOpenHolidayList}
                     />
                     <DetailWeather
                         className={`visible-detail-info ${
                             selectedDetail === 'weather' ? '' : 'hidden-detail-info'
                         }`}
-                        onChangeWeather={onChangeWeather}
                     />
                 </Box>
             </Box>

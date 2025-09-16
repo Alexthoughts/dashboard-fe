@@ -1,18 +1,16 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useContext, useEffect, useState } from 'react';
 import { Box, Typography } from '@mui/material';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import dayjs from 'dayjs';
 import { getNearestHoliday, getWorkingDay } from './reusableFunctions';
-import { holidayObjectType } from '../../types/types';
+import { HolidaysContext } from './HolidaysContext';
 
-type HolidayProps = {
-    onChange: (isOpen: boolean) => void;
-    holidayList: holidayObjectType[];
-    isOpenHolidayList: boolean;
-};
+type HolidayProps = {};
 
-export const Holiday: FC<HolidayProps> = ({ onChange, holidayList, isOpenHolidayList }) => {
+export const Holiday: FC<HolidayProps> = ({}) => {
     const [nextHolidayDay, setNextHolidayDay] = useState<string>();
+
+    const { holidayList, isOpenHolidayList, setIsOpenHolidayList } = useContext(HolidaysContext);
 
     useEffect(() => {
         if (holidayList.length > 0) {
@@ -37,7 +35,7 @@ export const Holiday: FC<HolidayProps> = ({ onChange, holidayList, isOpenHoliday
     };
 
     const clickAction = () => {
-        onChange(!isOpenHolidayList);
+        setIsOpenHolidayList(!isOpenHolidayList);
     };
 
     return (

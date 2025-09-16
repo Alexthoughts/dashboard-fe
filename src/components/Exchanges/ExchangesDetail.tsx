@@ -1,45 +1,47 @@
 import { Box, FormControl, InputLabel, MenuItem, Select, Typography } from '@mui/material';
 import { SelectChangeEvent } from '@mui/material/Select';
 import ClearIcon from '@mui/icons-material/Clear';
-import { FC, useEffect, useState } from 'react';
+import { FC, useContext, useEffect, useState } from 'react';
 import { Rate } from '../../types/types';
 import { boxStyle, inputLabelStyle, selectStyle } from './ExchangeStyles';
 import { useExchangeRate } from './useExchangeRateApi';
+import { ExchangeContext } from './ExchangeContext';
 
-type ExchangesDetailType = {
-    isOpen: boolean;
-    onChange: (exhangesRatesList: Rate[]) => void;
-};
+type ExchangesDetailType = {};
 
 type currencyType = {
     symbol: string;
     name: string;
 };
 
-export const ExchangesDetail: FC<ExchangesDetailType> = ({ isOpen, onChange }) => {
+export const ExchangesDetail: FC<ExchangesDetailType> = () => {
     const [currency1, setCurrency1] = useState<string>('');
     const [currency2, setCurrency2] = useState<string>('');
     const [rates, setRates] = useState<Rate[]>([]);
     const [currenciesList, setCurrenciesList] = useState<currencyType[]>([]);
+    const [isUpdatedRate, setIsUpdatedRate] = useState<boolean>();
+
     const { apiCallGetCurrenciesList, apiCallGetExchanges, getSavedRates, apiDeleteRate } = useExchangeRate();
+    const { setExhangesRatesList, setIsUpdated, isOpenExchangesDetail } = useContext(ExchangeContext);
 
     //get currencies list after open detail
     useEffect(() => {
-        if (isOpen) {
+        if (isOpenExchangesDetail) {
             apiCallGetCurrenciesList().then((currenciesList) => {
                 setCurrenciesList(currenciesList);
             });
         }
-    }, [isOpen === true]);
+    }, [isOpenExchangesDetail === true]);
 
-    //send data to parent component
     useEffect(() => {
-        onChange(rates);
+        setExhangesRatesList(rates);
+        setIsUpdated(isUpdatedRate);
     }, [JSON.stringify(rates)]);
 
     useEffect(() => {
         getSavedRates().then((savedRates) => {
-            setRates(savedRates);
+            setRates(savedRates.convertRateList);
+            setIsUpdatedRate(savedRates.isUpdated);
         });
     }, []);
 
@@ -110,7 +112,7 @@ export const ExchangesDetail: FC<ExchangesDetailType> = ({ isOpen, onChange }) =
     });
 
     return (
-        <Box className={`visible-header-detail ${isOpen || 'hidden-header-detail'}`} sx={boxStyle}>
+        <Box className={`visible-header-detail ${isOpenExchangesDetail || 'hidden-header-detail'}`} sx={boxStyle}>
             <Box
                 sx={{
                     display: 'flex',

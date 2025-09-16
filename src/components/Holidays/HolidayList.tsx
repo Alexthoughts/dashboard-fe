@@ -1,19 +1,17 @@
 import { Box } from '@mui/material';
 import dayjs from 'dayjs';
-import { FC, useEffect } from 'react';
+import { FC, useContext, useEffect } from 'react';
 import { holidayObjectType } from '../../types/types';
 import { getNearestHoliday, getWorkingDay } from './reusableFunctions';
 import useLocation from '../../hooks/useLocation';
 import axiosInstance from '../../api/axios';
+import { HolidaysContext } from './HolidaysContext';
 
-type HolidayListProps = {
-    setHolidays: (holidayList: []) => void;
-    isOpen: boolean;
-    holidayList: holidayObjectType[];
-};
+type HolidayListProps = {};
 
-export const HolidayList: FC<HolidayListProps> = ({ setHolidays, isOpen, holidayList }) => {
+export const HolidayList: FC<HolidayListProps> = ({}) => {
     const { fetchLocation } = useLocation();
+    const { holidayList, setHolidayList, isOpenHolidayList } = useContext(HolidaysContext);
 
     useEffect(() => {
         fetchHolidayList();
@@ -22,7 +20,7 @@ export const HolidayList: FC<HolidayListProps> = ({ setHolidays, isOpen, holiday
     const fetchHolidayList = async () => {
         const { country_code2 } = await fetchLocation();
         const getHolidayListResponse = await getHolidayList(country_code2);
-        setHolidays(getHolidayListResponse);
+        setHolidayList(getHolidayListResponse);
     };
 
     const getHolidayList = async (countryCode: string) => {
@@ -47,7 +45,7 @@ export const HolidayList: FC<HolidayListProps> = ({ setHolidays, isOpen, holiday
 
     return (
         <Box
-            className={`visible-header-detail ${isOpen || 'hidden-header-detail'}`}
+            className={`visible-header-detail ${isOpenHolidayList || 'hidden-header-detail'}`}
             sx={{
                 bgcolor: 'rgba(0, 0, 0, 0.7)',
                 borderRadius: '20px',
