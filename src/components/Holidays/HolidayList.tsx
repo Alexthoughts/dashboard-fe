@@ -19,8 +19,8 @@ export const HolidayList: FC<HolidayListProps> = ({}) => {
 
     const fetchHolidayList = async () => {
         const { country_code2 } = await fetchLocation();
-        const getHolidayListResponse = await getHolidayList(country_code2);
-        setHolidayList(getHolidayListResponse);
+        const holidayListResponse = await getHolidayList(country_code2);
+        setHolidayList(holidayListResponse);
     };
 
     const getHolidayList = async (countryCode: string) => {

@@ -79,8 +79,10 @@ export const ExchangesDetail: FC<ExchangesDetailType> = () => {
     };
 
     const handleDeleteRate = (rateId: number) => {
+        console.log(rates);
         const filteredArray = rates.filter((rate: Rate) => rate.id !== rateId);
         setRates(filteredArray);
+        console.log(rateId);
         apiDeleteRate(rateId);
     };
 

@@ -67,7 +67,7 @@ export const Circles: FC<CirclesType> = ({ onClick, recipeImage }) => {
                                 overflow: 'hidden',
                             }}
                         >
-                            Prague
+                            {weather.city}
                         </Typography>
                         <Typography sx={{ fontSize: '1.5rem', fontWeight: 'bold' }}>
                             {`${Math.round(weather.current.temperature)}°` || ''}
