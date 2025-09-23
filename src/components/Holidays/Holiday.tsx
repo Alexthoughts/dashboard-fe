@@ -12,8 +12,6 @@ export const Holiday: FC<HolidayProps> = ({}) => {
 
     const { holidayList, isOpenHolidayList, setIsOpenHolidayList } = useContext(HolidaysContext);
 
-    console.log(holidayList);
-
     useEffect(() => {
         if (holidayList.length > 0) {
             setNextHoliday();
