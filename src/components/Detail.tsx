@@ -119,9 +119,7 @@ export const Detail: FC<DetailType> = ({ detailName, onClose, onChangeRecipeImag
                     />
                     <DetailWeather
                         className={`visible-detail-info ${
-                            selectedDetail === 'weather' && (weather || isPendingWeather)
-                                ? ''
-                                : 'hidden-detail-info'
+                            selectedDetail === 'weather' ? '' : 'hidden-detail-info'
                         }`}
                     />
                 </Box>

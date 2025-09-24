@@ -1,4 +1,4 @@
-import { Box, TextField } from '@mui/material';
+import { Box, CircularProgress, Stack, TextField, Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
@@ -28,14 +28,20 @@ export const DetailNotes: FC<DetailNotesProps> = ({ className }) => {
     const [notesList, setNotesList] = useState<Note[]>([]);
     const [editableNote, setEditableNote] = useState<Note>();
     const [editableNoteSaved, setEditableNoteSaved] = useState<SavedNote>();
+    const [isGetNotesPending, setIsGetNotesPending] = useState<boolean>(true);
 
     useEffect(() => {
         getNotes();
     }, []);
 
     const getNotes = async () => {
-        const notes = await axios.get('note/get-notes');
-        setNotesList(notes.data);
+        try {
+            setIsGetNotesPending(true);
+            const notes = await axios.get('note/get-notes');
+            setNotesList(notes.data);
+        } finally {
+            setIsGetNotesPending(false);
+        }
     };
 
     const handleChangeNewNote = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -225,7 +231,14 @@ export const DetailNotes: FC<DetailNotesProps> = ({ className }) => {
                     overflowY: 'auto',
                 }}
             >
-                {renderedNotes}
+                {isGetNotesPending ? (
+                    <Stack alignItems="center" spacing={2}>
+                        <CircularProgress color="inherit" />
+                        <Typography>Loading notes...</Typography>
+                    </Stack>
+                ) : (
+                    renderedNotes
+                )}
             </Box>
         </Box>
     );

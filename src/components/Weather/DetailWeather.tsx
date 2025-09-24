@@ -28,7 +28,7 @@ export const DetailWeather: FC<DetailWeatherProps> = ({ className }) => {
 
     if (isPendingWeather) {
         return (
-            <Stack alignItems="center" spacing={2}>
+            <Stack alignItems="center" spacing={2} className={className}>
                 <CircularProgress color="inherit" />
                 <Typography>Loading weather...</Typography>
             </Stack>
