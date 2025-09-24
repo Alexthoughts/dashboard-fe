@@ -3,6 +3,7 @@ import { FC, useContext, useEffect, useState } from 'react';
 import { CircleNames } from '../types/types';
 import UseCircleWeatherImage from '../components/Weather/UseCircleWeatherImage';
 import { WeatherContext } from './Weather/WeatherContext';
+import RedDot from './Common/RedDot';
 
 type CirclesType = {
     onClick: (circleName: CircleNames) => void;
@@ -25,6 +26,8 @@ export const Circles: FC<CirclesType> = ({ onClick, recipeImage }) => {
         }
     }, [weather]);
 
+    console.log(weather);
+
     return (
         <Box
             sx={{
@@ -34,22 +37,22 @@ export const Circles: FC<CirclesType> = ({ onClick, recipeImage }) => {
             }}
         >
             {/* NOTES */}
-            <div className="black-circle">
-                <div className="circle-icon notes-icon" onClick={() => handleCircleClick('notes')} />
-            </div>
+            <Box className="black-circle">
+                <Box className="circle-icon notes-icon" onClick={() => handleCircleClick('notes')} />
+            </Box>
 
             {/* RECEIPT */}
-            <div className="black-circle">
-                <div
+            <Box className="black-circle">
+                <Box
                     className="circle-icon receipe-icon"
                     style={{ backgroundImage: `url(${recipeImage})` }}
                     onClick={() => handleCircleClick('receipe')}
                 />
-            </div>
+            </Box>
 
             {/* WEATHER */}
             {isPendingWeather && (
-                <div
+                <Box
                     className="circle-weather"
                     style={{
                         backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.78),rgba(0, 0, 0, 0.0))`,
@@ -58,17 +61,21 @@ export const Circles: FC<CirclesType> = ({ onClick, recipeImage }) => {
                 >
                     <CircularProgress color="inherit" size="2rem" />
                     <Typography>Loading weather...</Typography>
-                </div>
+                </Box>
             )}
 
             {weather && !isPendingWeather && (
-                <div
+                <Box
                     className="circle-weather"
+                    position="relative"
                     style={{
                         backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.78),rgba(0, 0, 0, 0.0)), url(${weatherImage})`,
                     }}
                     onClick={() => handleCircleClick('weather')}
                 >
+                    {weather.isUpdated === false && (
+                        <RedDot sx={{ top: '4px', right: { md: '26px', lg: '26px', sm: '26px', xs: '26px' } }} />
+                    )}
                     <Box sx={{ display: 'flex', gap: 1, maxWidth: '13rem' }}>
                         <Typography
                             sx={{
@@ -80,14 +87,14 @@ export const Circles: FC<CirclesType> = ({ onClick, recipeImage }) => {
                                 overflow: 'hidden',
                             }}
                         >
-                            {weather.city}
+                            {weather.city}{' '}
                         </Typography>
                         <Typography sx={{ fontSize: '1.5rem', fontWeight: 'bold' }}>
                             {`${Math.round(weather.current.temperature)}°` || ''}
                         </Typography>
                     </Box>
                     {weather.current.aqi && <Typography>{`AQI: ${weather.current.aqi}`}</Typography>}
-                </div>
+                </Box>
             )}
         </Box>
     );

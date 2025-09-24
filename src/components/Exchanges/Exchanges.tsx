@@ -2,7 +2,7 @@ import { FC, useContext, useEffect, useState } from 'react';
 import { Box, CircularProgress, Stack, Typography } from '@mui/material';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowDown';
 import { Rate } from '../../types/types';
-import RedButton from '../Common/RedButton';
+import RedDot from '../Common/RedDot';
 import { ExchangeContext } from './ExchangeContext';
 
 type ExchangesType = {};
@@ -38,7 +38,7 @@ export const Exchanges: FC<ExchangesType> = ({}) => {
     });
 
     return (
-        <Box sx={{ display: 'flex', flexDirection: 'row', gap: 1, alignItems: 'center' }}>
+        <Box sx={{ display: 'flex', flexDirection: 'row', gap: 1, alignItems: 'center', position: 'relative' }}>
             {isGetSavedRatesPending && (
                 <Stack direction="row" alignItems="center" spacing={2}>
                     <Typography>Exchanges</Typography>
@@ -50,9 +50,7 @@ export const Exchanges: FC<ExchangesType> = ({}) => {
                 <>
                     {renderedExchangeRates.length > 0 ? renderedExchangeRates : <Typography>Exchanges</Typography>}
                     {isUpdated === false && (
-                        <RedButton
-                            sx={{ top: '-33px', right: { md: '44px', lg: '44px', sm: '44px', xs: '44px' } }}
-                        />
+                        <RedDot sx={{ top: '-3px', right: { md: '22px', lg: '22px', sm: '22px', xs: '22px' } }} />
                     )}
                     <KeyboardArrowUpIcon
                         className="pointer"
