@@ -3,13 +3,11 @@ import { grey } from '@mui/material/colors';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import TurnedInNotIcon from '@mui/icons-material/TurnedInNot';
 import TurnedInIcon from '@mui/icons-material/TurnedIn';
-import { FC, useContext, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { DetailNotes } from './Notes/DetailNotes';
 import { DetailReceipe } from './DetailReceipe';
 import { CircleNames } from '../types/types';
 import { DetailWeather } from './Weather/DetailWeather';
-import { WeatherContext } from './Weather/WeatherContext';
-import useWeatherApi from './Weather/useWeatherApi';
 
 const theme = createTheme({
     palette: {
@@ -30,9 +28,6 @@ export const Detail: FC<DetailType> = ({ detailName, onClose, onChangeRecipeImag
     const [isVisible, setIsVisible] = useState<boolean>(false);
     const [selectedDetail, setSelectedDetail] = useState<any>();
     const [localStorageName, setLocalStorageName] = useState<any>(null);
-
-    const { weather } = useContext(WeatherContext);
-    const isPendingWeather = useWeatherApi();
 
     useEffect(() => {
         const savedDetailName = localStorage.getItem(localStorageKey);
