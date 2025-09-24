@@ -1,5 +1,5 @@
 import { FC, useContext, useEffect, useState } from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box, CircularProgress, Stack, Typography } from '@mui/material';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import dayjs from 'dayjs';
 import { getNearestHoliday, getWorkingDay } from './reusableFunctions';
@@ -10,7 +10,8 @@ type HolidayProps = {};
 export const Holiday: FC<HolidayProps> = ({}) => {
     const [nextHolidayDay, setNextHolidayDay] = useState<string>();
 
-    const { holidayList, isOpenHolidayList, setIsOpenHolidayList } = useContext(HolidaysContext);
+    const { holidayList, isOpenHolidayList, setIsOpenHolidayList, isPendingHolidays } =
+        useContext(HolidaysContext);
 
     useEffect(() => {
         if (holidayList.length > 0) {
@@ -40,7 +41,14 @@ export const Holiday: FC<HolidayProps> = ({}) => {
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'row', gap: 1 }}>
-            {nextHolidayDay && (
+            {isPendingHolidays && (
+                <Stack direction="row" alignItems="center" gap={2}>
+                    <Typography>Next public holiday:</Typography>
+                    <CircularProgress size="1rem" color="inherit" />
+                </Stack>
+            )}
+
+            {nextHolidayDay && !isPendingHolidays && (
                 <>
                     <Typography>Next public holiday: {nextHolidayDay}</Typography>
                     <KeyboardArrowUpIcon

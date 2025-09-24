@@ -1,4 +1,4 @@
-import { Box, Stack, Typography } from '@mui/material';
+import { Box, CircularProgress, Stack, Typography } from '@mui/material';
 import { FC, useContext, useEffect } from 'react';
 import useWeatherApi from './useWeatherApi';
 import { WeatherContext } from './WeatherContext';
@@ -9,7 +9,7 @@ type DetailWeatherProps = {
 
 export const DetailWeather: FC<DetailWeatherProps> = ({ className }) => {
     const { getWeatherApiCall } = useWeatherApi();
-    const { weather, setWeather } = useContext(WeatherContext);
+    const { weather, setWeather, isPendingWeather } = useContext(WeatherContext);
 
     useEffect(() => {
         fetchWheather();
@@ -22,8 +22,17 @@ export const DetailWeather: FC<DetailWeatherProps> = ({ className }) => {
         }
     };
 
-    if (!weather) {
+    if (!weather && !isPendingWeather) {
         return <></>;
+    }
+
+    if (isPendingWeather) {
+        return (
+            <Stack alignItems="center" spacing={2}>
+                <CircularProgress color="inherit" />
+                <Typography>Loading weather...</Typography>
+            </Stack>
+        );
     }
 
     return (

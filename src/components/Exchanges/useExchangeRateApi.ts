@@ -1,13 +1,19 @@
+import { useContext } from 'react';
 import axiosInstance from '../../api/axios';
+import { ExchangeContext } from './ExchangeContext';
 
 export const useExchangeRate = () => {
-    //get all currencies
+    const { setIsGetSavedRatesPending, setIsGetCurrenciesListPending } = useContext(ExchangeContext);
+
     const apiCallGetCurrenciesList = async () => {
         try {
+            setIsGetCurrenciesListPending(true);
             const response = await axiosInstance.get('exchange/get-currencies-list');
             return response.data.data;
         } catch (err: any) {
             throw new Error(err.response?.data?.message || 'Failed to fetch list of currencies');
+        } finally {
+            setIsGetCurrenciesListPending(false);
         }
     };
 
@@ -27,10 +33,13 @@ export const useExchangeRate = () => {
 
     const getSavedRates = async () => {
         try {
+            setIsGetSavedRatesPending(true);
             const response = await axiosInstance.get('exchange/get-saved-rates');
             return response.data.data;
         } catch (err: any) {
             throw new Error(err.response?.data?.message || 'Failed to fetch saved rates');
+        } finally {
+            setIsGetSavedRatesPending(false);
         }
     };
 

@@ -22,8 +22,11 @@ const UseCircleWeatherImage = () => {
             if (weatherIconText.includes('326')) {
                 return `/images/weather/light-snowfall-day-326.webp`;
             }
+            if (weatherIconText.includes('266')) {
+                return `/images/weather/rain-day-266.webp`;
+            }
             if (weatherIconText.includes('296')) {
-                return `/images/weather/rain-day-296.webp`;
+                return `/images/weather/light-rain-day-296.webp`;
             }
             if (weatherIconText.includes('338')) {
                 return `/images/weather/snowfall-day-338.webp`;
@@ -49,8 +52,11 @@ const UseCircleWeatherImage = () => {
             if (weatherIconText.includes('326')) {
                 return `/images/weather/light-snowfall-night-326.webp`;
             }
+            if (weatherIconText.includes('266')) {
+                return `/images/weather/rain-night-266.webp`;
+            }
             if (weatherIconText.includes('296')) {
-                return `/images/weather/rain-night-296.webp`;
+                return `/images/weather/light-rain-night-296.webp`;
             }
             if (weatherIconText.includes('338')) {
                 return `/images/weather/snowfall-night-338.webp`;

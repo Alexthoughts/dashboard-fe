@@ -11,7 +11,7 @@ type HolidayListProps = {};
 
 export const HolidayList: FC<HolidayListProps> = ({}) => {
     const { fetchLocation } = useLocation();
-    const { holidayList, setHolidayList, isOpenHolidayList } = useContext(HolidaysContext);
+    const { holidayList, setHolidayList, isOpenHolidayList, setIsPendingHolidays } = useContext(HolidaysContext);
 
     useEffect(() => {
         fetchHolidayList();
@@ -24,8 +24,13 @@ export const HolidayList: FC<HolidayListProps> = ({}) => {
     };
 
     const getHolidayList = async (countryCode: string) => {
-        const response = await axiosInstance.get(`holiday/get-holiday-list/${countryCode}`);
-        return response.data.data;
+        try {
+            setIsPendingHolidays(true);
+            const response = await axiosInstance.get(`holiday/get-holiday-list/${countryCode}`);
+            return response.data.data;
+        } finally {
+            setIsPendingHolidays(false);
+        }
     };
 
     const renderHolidayList = () => {

@@ -6,6 +6,8 @@ type HolidaysContextType = {
     setIsOpenHolidayList: (isOpen: boolean) => void;
     holidayList: holidayObjectType[];
     setHolidayList: (holidayObjectType: []) => void;
+    isPendingHolidays: boolean;
+    setIsPendingHolidays: (isPending: boolean) => void;
 };
 
 export const HolidaysContext = createContext<HolidaysContextType>({
@@ -13,11 +15,14 @@ export const HolidaysContext = createContext<HolidaysContextType>({
     setIsOpenHolidayList: () => {},
     holidayList: [],
     setHolidayList: () => {},
+    isPendingHolidays: true,
+    setIsPendingHolidays: () => {},
 });
 
 const HolidaysContextProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [isOpenHolidayList, setIsOpenHolidayList] = useState<boolean>(false);
     const [holidayList, setHolidayList] = useState<holidayObjectType[]>([]);
+    const [isPendingHolidays, setIsPendingHolidays] = useState<boolean>(true);
 
     return (
         <HolidaysContext.Provider
@@ -26,6 +31,8 @@ const HolidaysContextProvider: React.FC<{ children: ReactNode }> = ({ children }
                 setIsOpenHolidayList,
                 holidayList,
                 setHolidayList,
+                isPendingHolidays,
+                setIsPendingHolidays,
             }}
         >
             {children}

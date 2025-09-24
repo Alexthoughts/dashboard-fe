@@ -1,4 +1,13 @@
-import { Box, FormControl, InputLabel, MenuItem, Select, Typography } from '@mui/material';
+import {
+    Box,
+    CircularProgress,
+    FormControl,
+    InputLabel,
+    MenuItem,
+    Select,
+    Stack,
+    Typography,
+} from '@mui/material';
 import { SelectChangeEvent } from '@mui/material/Select';
 import ClearIcon from '@mui/icons-material/Clear';
 import { FC, useContext, useEffect, useState } from 'react';
@@ -22,7 +31,8 @@ export const ExchangesDetail: FC<ExchangesDetailType> = () => {
     const [isUpdatedRate, setIsUpdatedRate] = useState<boolean>();
 
     const { apiCallGetCurrenciesList, apiCallGetExchanges, getSavedRates, apiDeleteRate } = useExchangeRate();
-    const { setExhangesRatesList, setIsUpdated, isOpenExchangesDetail } = useContext(ExchangeContext);
+    const { setExhangesRatesList, setIsUpdated, isOpenExchangesDetail, isGetCurrenciesListPending } =
+        useContext(ExchangeContext);
 
     //get currencies list after open detail
     useEffect(() => {
@@ -140,7 +150,13 @@ export const ExchangesDetail: FC<ExchangesDetailType> = () => {
                             label="Currency 1"
                             sx={selectStyle}
                         >
-                            {renderCurrenciesList}
+                            {isGetCurrenciesListPending ? (
+                                <Stack alignItems="center" justifyContent="center">
+                                    <CircularProgress size="1rem" color="inherit" />
+                                </Stack>
+                            ) : (
+                                renderCurrenciesList
+                            )}
                         </Select>
                     </FormControl>
                 </Box>
@@ -158,7 +174,13 @@ export const ExchangesDetail: FC<ExchangesDetailType> = () => {
                             label="Currency 2"
                             sx={selectStyle}
                         >
-                            {renderCurrenciesList}
+                            {isGetCurrenciesListPending ? (
+                                <Stack alignItems="center" justifyContent="center">
+                                    <CircularProgress size="1rem" color="inherit" />
+                                </Stack>
+                            ) : (
+                                renderCurrenciesList
+                            )}
                         </Select>
                     </FormControl>
                 </Box>

@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material';
+import { Box, CircularProgress, Typography } from '@mui/material';
 import { FC, useContext, useEffect, useState } from 'react';
 import { CircleNames } from '../types/types';
 import UseCircleWeatherImage from '../components/Weather/UseCircleWeatherImage';
@@ -12,7 +12,7 @@ type CirclesType = {
 export const Circles: FC<CirclesType> = ({ onClick, recipeImage }) => {
     const [weatherImage, setWeatherImage] = useState<string>();
     const { getWeatherBg } = UseCircleWeatherImage();
-    const { weather } = useContext(WeatherContext);
+    const { weather, isPendingWeather } = useContext(WeatherContext);
 
     const handleCircleClick = (circleName: CircleNames) => {
         onClick(circleName);
@@ -48,7 +48,20 @@ export const Circles: FC<CirclesType> = ({ onClick, recipeImage }) => {
             </div>
 
             {/* WEATHER */}
-            {weather && (
+            {isPendingWeather && (
+                <div
+                    className="circle-weather"
+                    style={{
+                        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.78),rgba(0, 0, 0, 0.0))`,
+                    }}
+                    onClick={() => handleCircleClick('weather')}
+                >
+                    <CircularProgress color="inherit" size="2rem" />
+                    <Typography>Loading weather...</Typography>
+                </div>
+            )}
+
+            {weather && !isPendingWeather && (
                 <div
                     className="circle-weather"
                     style={{

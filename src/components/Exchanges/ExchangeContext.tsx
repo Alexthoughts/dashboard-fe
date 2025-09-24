@@ -8,6 +8,10 @@ type ExchangeContextType = {
     setIsUpdated: (isUpdated?: boolean) => void;
     isOpenExchangesDetail: boolean;
     setIsOpenExchangesDetail: (isOpen: boolean) => void;
+    isGetSavedRatesPending: boolean;
+    setIsGetSavedRatesPending: (isPending: boolean) => void;
+    isGetCurrenciesListPending: boolean;
+    setIsGetCurrenciesListPending: (isPending: boolean) => void;
 };
 
 export const ExchangeContext = createContext<ExchangeContextType>({
@@ -17,12 +21,18 @@ export const ExchangeContext = createContext<ExchangeContextType>({
     setIsUpdated: () => {},
     isOpenExchangesDetail: false,
     setIsOpenExchangesDetail: () => {},
+    isGetSavedRatesPending: true,
+    setIsGetSavedRatesPending: () => {},
+    isGetCurrenciesListPending: true,
+    setIsGetCurrenciesListPending: () => {},
 });
 
 const ExchangeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [exhangesRatesList, setExhangesRatesList] = useState<Rate[]>([]);
     const [isUpdated, setIsUpdated] = useState<boolean | undefined>(undefined);
     const [isOpenExchangesDetail, setIsOpenExchangesDetail] = useState<boolean>(false);
+    const [isGetSavedRatesPending, setIsGetSavedRatesPending] = useState<boolean>(true);
+    const [isGetCurrenciesListPending, setIsGetCurrenciesListPending] = useState<boolean>(true);
 
     return (
         <ExchangeContext.Provider
@@ -33,6 +43,10 @@ const ExchangeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
                 setIsUpdated,
                 isOpenExchangesDetail,
                 setIsOpenExchangesDetail,
+                isGetSavedRatesPending,
+                setIsGetSavedRatesPending,
+                isGetCurrenciesListPending,
+                setIsGetCurrenciesListPending,
             }}
         >
             {children}
