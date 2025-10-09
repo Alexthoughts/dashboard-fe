@@ -4,7 +4,7 @@ const UseCircleWeatherImage = () => {
         const isDay = weather.current.isDay;
 
         if (isDay) {
-            if (weatherIconText.includes('116')) {
+            if (weatherIconText.includes('116') || weatherIconText.includes('119')) {
                 return `/images/weather/sun-and-clouds-day-116.webp`;
             }
             if (weatherIconText.includes('176')) {
@@ -34,7 +34,7 @@ const UseCircleWeatherImage = () => {
         }
 
         if (!isDay) {
-            if (weatherIconText.includes('116')) {
+            if (weatherIconText.includes('116') || weatherIconText.includes('119')) {
                 return `/images/weather/clear-and-clouds-night-116.webp`;
             }
             if (weatherIconText.includes('176')) {
