@@ -26,8 +26,6 @@ export const Circles: FC<CirclesType> = ({ onClick, recipeImage }) => {
         }
     }, [weather]);
 
-    console.log(weather);
-
     return (
         <Box
             sx={{

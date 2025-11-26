@@ -19,6 +19,9 @@ const UseCircleWeatherImage = () => {
             if (weatherIconText.includes('143')) {
                 return `/images/weather/fog-day-143.webp`;
             }
+            if (weatherIconText.includes('323')) {
+                return `/images/weather/light-snowfall-day-326.webp`;
+            }
             if (weatherIconText.includes('326')) {
                 return `/images/weather/light-snowfall-day-326.webp`;
             }
@@ -48,6 +51,9 @@ const UseCircleWeatherImage = () => {
             }
             if (weatherIconText.includes('143')) {
                 return `/images/weather/fog-night-143.webp`;
+            }
+            if (weatherIconText.includes('323')) {
+                return `/images/weather/light-snowfall-night-326.webp`;
             }
             if (weatherIconText.includes('326')) {
                 return `/images/weather/light-snowfall-night-326.webp`;
