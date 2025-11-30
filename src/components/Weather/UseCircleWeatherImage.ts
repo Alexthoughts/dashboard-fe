@@ -16,13 +16,10 @@ const UseCircleWeatherImage = () => {
             if (weatherIconText.includes('122')) {
                 return `/images/weather/clouds-day-122.webp`;
             }
-            if (weatherIconText.includes('143')) {
+            if (weatherIconText.includes('143') || weatherIconText.includes('248')) {
                 return `/images/weather/fog-day-143.webp`;
             }
-            if (weatherIconText.includes('323')) {
-                return `/images/weather/light-snowfall-day-326.webp`;
-            }
-            if (weatherIconText.includes('326')) {
+            if (weatherIconText.includes('323') || weatherIconText.includes('326')) {
                 return `/images/weather/light-snowfall-day-326.webp`;
             }
             if (weatherIconText.includes('266')) {
@@ -49,13 +46,10 @@ const UseCircleWeatherImage = () => {
             if (weatherIconText.includes('122')) {
                 return `/images/weather/clouds-night-122.webp`;
             }
-            if (weatherIconText.includes('143')) {
+            if (weatherIconText.includes('143') || weatherIconText.includes('248')) {
                 return `/images/weather/fog-night-143.webp`;
             }
-            if (weatherIconText.includes('323')) {
-                return `/images/weather/light-snowfall-night-326.webp`;
-            }
-            if (weatherIconText.includes('326')) {
+            if (weatherIconText.includes('323') || weatherIconText.includes('326')) {
                 return `/images/weather/light-snowfall-night-326.webp`;
             }
             if (weatherIconText.includes('266')) {
